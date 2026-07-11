@@ -1,241 +1,122 @@
-<div align="center">
-
-# 🤖 RAG Document Chatbot
-
-### Chat with your documents using Retrieval-Augmented Generation
+# RAG Document Chatbot
 
 
 
 **Live Demo:** [https://rag-document-chatbot-z3pa.onrender.com](https://rag-document-chatbot-z3pa.onrender.com)
 
-![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)
-![Chainlit](https://img.shields.io/badge/UI-Chainlit-F97316)
-![Groq](https://img.shields.io/badge/LLM-Groq-00A67E)
-![License](https://img.shields.io/badge/License-MIT-4CAF50)
+RAG Document Chatbot is a Generative AI application that lets users upload PDF, TXT, or Markdown files and ask questions about their content. It retrieves relevant document chunks and sends them to a Groq-hosted large language model to generate grounded answers with source references.
 
-</div>
+## Features
 
----
+- Upload PDF, TXT, and Markdown files.
+- Ask questions from uploaded documents.
+- Multi-document sessions.
+- Lightweight keyword-based retrieval.
+- Groq LLM answer generation.
+- Recent chat memory.
+- Source references in responses.
+- `/summary` command for document summaries.
+- `/reset` command to clear the current browser session.
 
-## 📖 Overview
+## Tech Stack
 
-**RAG Document Chatbot** is a Generative AI application that turns static documents into a conversational knowledge base. Upload a PDF, TXT, or Markdown file, ask a question in plain English, and the assistant retrieves the most relevant passages and uses a large language model to generate a grounded, source-cited answer — instead of hallucinating from memory.
+- Python 3.11
+- FastAPI
+- Uvicorn
+- Groq API
+- PyPDF
+- Requests
+- Render
 
-It's built on the **Retrieval-Augmented Generation (RAG)** pattern:
+## Getting Started
 
-> **Documents → Chunks → Retrieval → LLM Context → Grounded Answer**
+1. Clone the repository:
 
-This is the same architectural pattern behind production tools like internal knowledge-base assistants, customer support copilots, and document Q&A systems — implemented here as a clean, self-contained, deployable reference project.
-
----
-
-## ✨ What It Can Do
-
-| Capability | Description |
-|---|---|
-| 📄 **Multi-format ingestion** | Upload and parse PDF, TXT, and Markdown files |
-| 📚 **Multi-document sessions** | Combine multiple files into a single searchable knowledge base per session |
-| 🔍 **Context retrieval** | Uses lightweight keyword-based search to surface the most relevant chunks for each question |
-| 🧠 **LLM-powered answers** | Sends retrieved context to a Groq-hosted LLM to generate accurate, grounded responses |
-| 💬 **Conversational memory** | Remembers recent turns in the conversation for natural follow-up questions |
-| 🔗 **Source attribution** | Every answer lists the exact document(s) it was drawn from |
-| ⚡ **Slash commands** | `/summary` — summarize uploaded docs · `/sources` — show sources for the last answer · `/reset` — clear the session |
-
----
-
-## 🏗️ How It Works
-
-```
- ┌──────────────┐    ┌───────────────┐    ┌────────────────────┐    ┌──────────────────┐
- │  Upload Docs  │ →  │  Chunk Text   │ →  │  Retrieve Relevant │ →  │  Groq LLM         │
- │ (PDF/TXT/MD)  │    │ (with overlap)│    │  Chunks (Top-K)    │    │  Generates Answer │
- └──────────────┘    └───────────────┘    └────────────────────┘    │  + Cites Sources  │
-                                                                     └──────────────────┘
-```
-
-1. **Ingestion** — Documents are parsed and cleaned.
-2. **Chunking** — Text is split into overlapping segments (configurable size/overlap) so context isn't lost at chunk boundaries.
-3. **Retrieval** — Each question is matched against all chunks using keyword scoring; the top-K most relevant chunks are selected.
-4. **Generation** — The selected chunks and recent chat history are passed to a Groq-hosted LLM, instructed to answer strictly from the given context.
-5. **Response** — The model's answer is returned to the user along with the source documents used, so answers stay verifiable.
-
----
-
-## 🛠️ Tech Stack
-
-| Layer | Technology | Purpose |
-|---|---|---|
-| Chat Interface | [Chainlit](https://chainlit.io) | Interactive web-based chat UI |
-| LLM Inference | [Groq API](https://groq.com) | Fast hosted inference for the response-generation model |
-| PDF Parsing | [PyPDF](https://pypi.org/project/pypdf/) | Extracts text from uploaded PDF files |
-| HTTP Layer | [Requests](https://pypi.org/project/requests/) | Communicates with the Groq API |
-| Configuration | [python-dotenv](https://pypi.org/project/python-dotenv/) | Loads environment variables from `.env` |
-| Runtime | Python 3.11 | Core application language |
-| Hosting | Render | One-click cloud deployment |
-
----
-
-## 🚀 Getting Started
-
-### 1. Clone the repository
 ```bash
 git clone https://github.com/ashishthakur0001/rag-based-generative-ai-chat-assistant.git
 cd rag-based-generative-ai-chat-assistant
 ```
 
-### 2. Configure environment variables
-Create a `.env` file in the project root:
+2. Create a `.env` file:
+
 ```env
 GROQ_API_KEY=your_groq_api_key_here
 GROQ_MODEL=llama-3.1-8b-instant
 ```
 
-### 3. Install dependencies
+3. Install dependencies:
+
 ```bash
 python -m pip install -r requirements.txt
 ```
 
-### 4. Run the app
+4. Run locally:
+
 ```bash
-python -m chainlit run app.py --host 127.0.0.1 --port 8000
+python -m uvicorn app:app --host 127.0.0.1 --port 8000
 ```
 
-**Windows shortcut:**
+Then open [http://127.0.0.1:8000](http://127.0.0.1:8000).
+
+On Windows, you can also run:
+
 ```bat
 setup.bat
 Run.bat
 ```
 
-Once running, open your browser to `http://127.0.0.1:8000`, upload a document, and start asking questions.
+## Render Deployment
 
----
+This repo includes `render.yaml`, so Render can deploy it as a Blueprint.
 
-## ⚙️ Configuration Reference
+Build command:
 
-| Variable | Default | Description |
-|---|---|---|
-| `GROQ_API_KEY` | — | Your Groq API key (required for answer generation) |
-| `GROQ_MODEL` | `llama-3.1-8b-instant` | Which Groq-hosted model to use |
-| `CHUNK_SIZE` | `1200` | Character length of each text chunk |
-| `CHUNK_OVERLAP` | `200` | Overlap between consecutive chunks, to preserve context continuity |
-| `TOP_K` | `4` | Number of chunks retrieved per question |
-
----
-
-## ☁️ Deployment
-
-This project is pre-configured for one-click deployment on **Render**.
-
-**Start command:**
 ```bash
-python -m chainlit run app.py --host 0.0.0.0 --port $PORT --headless
+python -m pip install -r requirements.txt
 ```
 
-**Environment variables to set on Render:**
+Start command:
+
+```bash
+python -m uvicorn app:app --host 0.0.0.0 --port $PORT
+```
+
+Environment variables:
+
 ```env
 GROQ_API_KEY=your_groq_api_key_here
 GROQ_MODEL=llama-3.1-8b-instant
 ```
 
-`Procfile` and `render.yaml` are already included, so deployment requires no extra configuration beyond your API key.
+## Configuration
 
----
+| Variable | Default | Description |
+|---|---|---|
+| `GROQ_API_KEY` | required | Groq API key for answer generation |
+| `GROQ_MODEL` | `llama-3.1-8b-instant` | Groq model name |
+| `CHUNK_SIZE` | `1200` | Character length of each text chunk |
+| `CHUNK_OVERLAP` | `200` | Overlap between chunks |
+| `TOP_K` | `4` | Number of chunks retrieved per question |
 
-## 📁 Project Structure
+## Project Structure
 
-```
+```text
 .
-├── app.py              # Core logic — chunking, retrieval, Groq calls, Chainlit event hooks
-├── requirements.txt     # Python dependencies
-├── README.md            # Project documentation
-├── chainlit.md          # Chainlit welcome screen content
-├── render.yaml           # Render deployment configuration
-├── Procfile               # Process definition for deployment
-├── runtime.txt            # Pinned Python version
-├── setup.bat / Run.bat    # Windows setup & run helper scripts
-├── .env.example            # Sample environment variable file
-└── .gitignore
+|-- app.py
+|-- requirements.txt
+|-- Requirement.txt
+|-- README.md
+|-- render.yaml
+|-- Procfile
+|-- runtime.txt
+|-- setup.bat
+|-- Run.bat
+|-- .env.example
+`-- .gitignore
 ```
 
----
+## Notes
 
-## 🖼️ Screenshots
-
-> Add screenshots once deployed, referencing them like below:
-
-```markdown
-![Upload Screen](docs/screenshot-upload.png)
-![Chat in Action](docs/screenshot-chat.png)
-![Source Attribution](docs/screenshot-sources.png)
-```
-
----
-
-## 📝 Notes
-
-- A valid `GROQ_API_KEY` is required for the assistant to generate answers.
-- Without a key, the UI still loads normally, but responses will display a clear "missing API key" message instead of failing silently.
-- Retrieval currently relies on keyword-based scoring rather than embedding-based semantic search, keeping the project dependency-light and fast to set up locally.
-
----
-
-## 🧩 Roadmap
-
-- [ ] Upgrade retrieval to embedding-based semantic search (e.g., `sentence-transformers` + Chroma/FAISS)
-- [ ] Add support for `.docx` and `.csv` uploads
-- [ ] Persist documents and chat history across sessions
-- [ ] Add automated tests for chunking and retrieval logic
-
----
-
-## 📄 About
-
-This project explores a practical, production-style Retrieval-Augmented Generation pipeline — transforming unstructured documents into a queryable knowledge source and grounding LLM output in real content rather than the model's raw memory. It's designed to be minimal, easy to run locally, and quick to deploy.
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome and appreciated! If you'd like to improve this project:
-
-1. **Fork** the repository
-2. **Create a branch** for your feature or fix
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-3. **Make your changes** and commit them
-   ```bash
-   git commit -m "Add: brief description of your change"
-   ```
-4. **Push** to your fork and open a **Pull Request**
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-
-Some ideas if you're looking for where to start (see [Roadmap](#-roadmap) above):
-- Swap keyword retrieval for embedding-based semantic search
-- Add support for more file formats (`.docx`, `.csv`)
-- Improve error handling or add unit tests
-- Enhance the UI/UX in Chainlit
-
-Found a bug or have a feature request? Feel free to [open an issue](https://github.com/ashishthakur0001/rag-based-generative-ai-chat-assistant/issues) — all suggestions are welcome, big or small.
-
----
-
-## ⭐ Support
-
-If you find this project useful, consider giving it a **star** ⭐ on GitHub — it helps others discover it and motivates further development.
-
----
-
-## 📜 License
-
-Licensed under the **MIT License**. You are free to use, modify, and distribute this project with attribution. See [LICENSE](LICENSE) for full terms.
-
----
-
-<div align="center">
-
-**Author:** [Ashish Thakur](https://github.com/ashishthakur0001)
-
-</div>
+- A valid `GROQ_API_KEY` is required for generated answers.
+- Without `GROQ_API_KEY`, the web app still loads and shows a clear missing-key message.
+- Retrieval currently uses keyword scoring to keep deployment lightweight.

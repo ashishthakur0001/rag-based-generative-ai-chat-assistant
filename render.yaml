@@ -4,7 +4,7 @@ services:
     env: python
     plan: free
     buildCommand: python -m pip install -r requirements.txt
-    startCommand: python -m chainlit run app.py --host 0.0.0.0 --port $PORT --headless
+    startCommand: python -m uvicorn app:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: GROQ_API_KEY
         sync: false
