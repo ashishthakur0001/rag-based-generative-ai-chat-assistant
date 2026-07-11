@@ -4,7 +4,7 @@
 
 ### Chat with your documents using Retrieval-Augmented Generation
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/ashishthakur0001/rag-based-generative-ai-chat-assistant)
+https://rag-document-chatbot-z3pa.onrender.com
 ![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)
 ![Chainlit](https://img.shields.io/badge/UI-Chainlit-F97316)
 ![Groq](https://img.shields.io/badge/LLM-Groq-00A67E)
