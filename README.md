@@ -1,5 +1,7 @@
 # RAG Document Chatbot
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/ashishthakur0001/rag-based-generative-ai-chat-assistant)
+
 This is a Generative AI project. It uses Retrieval-Augmented Generation (RAG): uploaded documents are split into searchable chunks, relevant chunks are retrieved for each question, and a Groq-hosted large language model generates the final answer.
 
 ## What It Can Do
