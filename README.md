@@ -55,13 +55,32 @@ Run.bat
 
 ```text
 .
-├── app.py
-├── requirements.txt
-├── Requirement.txt
-├── README.md
-├── Run.bat
-├── setup.bat
-└── .gitignore
+|-- app.py
+|-- requirements.txt
+|-- Requirement.txt
+|-- README.md
+|-- Run.bat
+|-- setup.bat
+|-- render.yaml
+|-- Procfile
+|-- runtime.txt
+|-- .env.example
+`-- .gitignore
+```
+
+## Deployment
+
+This project is ready for Render. Use this start command:
+
+```bash
+python -m chainlit run app.py --host 0.0.0.0 --port $PORT --headless
+```
+
+Set these environment variables on Render:
+
+```env
+GROQ_API_KEY=your_groq_api_key_here
+GROQ_MODEL=llama-3.1-8b-instant
 ```
 
 ## Notes
