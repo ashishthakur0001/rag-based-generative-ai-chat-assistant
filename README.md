@@ -4,7 +4,7 @@
 
 ### Chat with your documents using Retrieval-Augmented Generation
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/ashishthakur0001/rag-based-generative-ai-chat-assistant)
+
 
 **Live Demo:** [https://rag-document-chatbot-z3pa.onrender.com](https://rag-document-chatbot-z3pa.onrender.com)
 
