@@ -191,6 +191,40 @@ This project explores a practical, production-style Retrieval-Augmented Generati
 
 ---
 
+## 🤝 Contributing
+
+Contributions are welcome and appreciated! If you'd like to improve this project:
+
+1. **Fork** the repository
+2. **Create a branch** for your feature or fix
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+3. **Make your changes** and commit them
+   ```bash
+   git commit -m "Add: brief description of your change"
+   ```
+4. **Push** to your fork and open a **Pull Request**
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+
+Some ideas if you're looking for where to start (see [Roadmap](#-roadmap) above):
+- Swap keyword retrieval for embedding-based semantic search
+- Add support for more file formats (`.docx`, `.csv`)
+- Improve error handling or add unit tests
+- Enhance the UI/UX in Chainlit
+
+Found a bug or have a feature request? Feel free to [open an issue](https://github.com/ashishthakur0001/rag-based-generative-ai-chat-assistant/issues) — all suggestions are welcome, big or small.
+
+---
+
+## ⭐ Support
+
+If you find this project useful, consider giving it a **star** ⭐ on GitHub — it helps others discover it and motivates further development.
+
+---
+
 ## 📜 License
 
 Licensed under the **MIT License**. You are free to use, modify, and distribute this project with attribution. See [LICENSE](LICENSE) for full terms.
