@@ -21,6 +21,8 @@ CHUNK_SIZE = int(os.getenv("CHUNK_SIZE", "1200"))
 CHUNK_OVERLAP = int(os.getenv("CHUNK_OVERLAP", "200"))
 TOP_K = int(os.getenv("TOP_K", "4"))
 
+APP_VERSION = "fastapi-render-fix-2026-07-11"
+
 app = FastAPI(title="RAG Document Chatbot")
 SESSIONS: Dict[str, Dict[str, List[Dict[str, str]]]] = {}
 
@@ -73,6 +75,7 @@ PAGE = """
         <button id="send" disabled>Send</button>
       </div>
       <div class="hint">Commands: /summary, /reset</div>
+      <div class="hint">Version: fastapi-render-fix-2026-07-11</div>
     </section>
   </main>
   <script>
@@ -236,7 +239,7 @@ def index() -> str:
 
 @app.get("/health")
 def health() -> Dict[str, str]:
-    return {"status": "ok"}
+    return {"status": "ok", "version": APP_VERSION}
 
 
 @app.post("/upload")
