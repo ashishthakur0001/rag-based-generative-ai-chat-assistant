@@ -1,0 +1,4 @@
+chainlit
+pypdf
+python-dotenv
+requests

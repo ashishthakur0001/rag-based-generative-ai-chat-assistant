@@ -1,0 +1,11 @@
+venv/
+env/
+__pycache__/
+*.pyc
+.env
+python_installer.exe
+.chroma/
+chroma_db/
+.chainlit/
+.files/
+*.log
